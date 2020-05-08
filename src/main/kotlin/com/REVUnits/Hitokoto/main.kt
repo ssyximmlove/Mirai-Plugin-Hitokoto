@@ -78,15 +78,16 @@ object main : PluginBase() {
                     "j" -> "网易云"
                     "k" -> "哲学"
                     "l" -> "抖机灵"
-                    else -> "其他类型"
+                    else -> "其他"
                 }
 
                 reply("""
                     今日一言：${data.sentense}
                     来自：${data.from}
                     类型：$temp_type
-                    数据来源："v1.hitokoto.cn"
+                    数据来源：v1.hitokoto.cn
                 """.trimIndent())
+
             }
             contains("类型列表"){
                 this.group.sendMessage("""
