@@ -106,7 +106,7 @@ object main : PluginBase() {
                     l|抖机灵
                 """.trimIndent())
             }
-            /*startsWith("类型"){
+            startsWith("一言类型"){
                 var rtype: String?
                 rtype = when (it){
                     "动画"->"a"
@@ -121,7 +121,7 @@ object main : PluginBase() {
                     "网易云"->"j"
                     "哲学"->"k"
                     "抖机灵"->"l"
-                    else ->""
+                    else->""
                 }
                 val typeRequest = Request.Builder()
                         .url("${Url}?c=${rtype}")
@@ -131,11 +131,12 @@ object main : PluginBase() {
                 val content = typeResponse.body!!.string()
                 data = Gson().fromJson(content,Hitokoto::class.java)
                 this.group.sendMessage("""
-                    ${it}类型的的一言：${data.sentense}
-                    来自${data.from}
-                    数据来源："v1.hitokoto.cn"
+                    今日一言：${data.sentense}
+                    来自：${data.from}
+                    类型：$temp_type
+                    数据来源：v1.hitokoto.cn
                 """.trimIndent())
-            }*/
+            }
 
             ("Copyright")reply("Design By SamSong,Hitokoto Source by hitokoto.cn")
 
