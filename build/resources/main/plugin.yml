@@ -1,0 +1,8 @@
+name: "Hitokoto-一言"
+author: "SamSong"
+version: "1.0.0"
+main: "com.REVUnits.Hitokoto.main"
+info: "一个简洁的一言插件"
+depends: 
+  -gson, 
+  -okhttp3
