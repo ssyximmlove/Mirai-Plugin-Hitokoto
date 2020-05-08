@@ -92,18 +92,18 @@ object main : PluginBase() {
             contains("类型列表"){
                 this.group.sendMessage("""
                     类型列表（参数|类型）
-                    a|动画
-                    b|动漫
-                    c|游戏
-                    d|文学
-                    e|原创
-                    f|网络
-                    g|其他
-                    h|影视
-                    i|诗词
-                    j|网易云
-                    k|哲学
-                    l|抖机灵
+                    a | 动画
+                    b | 动漫
+                    c | 游戏
+                    d | 文学
+                    e | 原创
+                    f | 网络
+                    g | 其他
+                    h | 影视
+                    i | 诗词
+                    j | 网易云
+                    k | 哲学
+                    l | 抖机灵
                 """.trimIndent())
             }
             startsWith("一言类型"){
@@ -115,13 +115,13 @@ object main : PluginBase() {
                     "文学"->"d"
                     "原创"->"e"
                     "网络"->"f"
-                    "其他"->"g"
                     "影视"->"h"
                     "诗词"->"i"
                     "网易云"->"j"
                     "哲学"->"k"
                     "抖机灵"->"l"
-                    else->""
+                    else->"g"
+
                 }
                 val typeRequest = Request.Builder()
                         .url("${Url}?c=${rtype}")
@@ -133,7 +133,8 @@ object main : PluginBase() {
                 this.group.sendMessage("""
                     今日一言：${data.sentense}
                     来自：${data.from}
-                    类型：$temp_type
+                    类型：$it
+                    参数：$rtype
                     数据来源：v1.hitokoto.cn
                 """.trimIndent())
             }

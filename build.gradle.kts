@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.REVUnits.Hitokoto"
-version = "1.1.3"
+version = "1.2.0"
 
 repositories {
     maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
