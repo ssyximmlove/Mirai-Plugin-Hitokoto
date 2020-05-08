@@ -142,8 +142,8 @@ object main : PluginBase() {
             ("Copyright")reply("Design By SamSong,Hitokoto Source by hitokoto.cn")
             contains("info"){
 
-                this.group.sendMessage(
-                """简单一*言插件命令
+                this.group.sendMessage("""
+                简单一*言插件命令
                 一*言：简单一言
                 类*型+xx：输出带类型的一*言
                 类型*列表：输出所有类型
