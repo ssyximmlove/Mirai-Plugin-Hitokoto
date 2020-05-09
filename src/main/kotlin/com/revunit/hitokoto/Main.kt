@@ -36,7 +36,37 @@ object Main : PluginBase() {
             it.group.sendMessage("欢迎${it.member.nameCardOrNick}加入本群")
         }
         subscribeGroupMessages {
-            "一言" reply (getHitokoto())
+            "一言" reply {
+                val request = Request.Builder().url("$url")
+                    .get()
+                    .build()
+                val response = client.newCall(request).execute()
+                val content = response.body!!.string()
+                val data = Gson().fromJson(content, Hitokoto::class.java)
+                val tempType = when (data.type) {
+                    "a" -> "动画"
+                    "b" -> "漫画"
+                    "c" -> "游戏"
+                    "d" -> "文学"
+                    "e" -> "原创"
+                    "f" -> "网络"
+                    "g" -> "其他"
+                    "h" -> "影视"
+                    "i" -> "诗词"
+                    "j" -> "网易云"
+                    "k" -> "哲学"
+                    "l" -> "抖机灵"
+                    else -> "其他"
+                }
+                data.type = tempType
+                var result = """
+                    今日一言：${data.sentense}
+                    来自：${data.from}
+                    类型：$tempType
+                    数据来源：v1.hitokoto.cn
+                """.trimIndent()
+                result
+            }
             ("列表") reply ("""
                 类型列表（参数|类型）
                     a | 动画
@@ -67,7 +97,19 @@ object Main : PluginBase() {
                     "抖机灵" -> "l"
                     else -> "g"
                 }
-                group.sendMessage(getHitokoto(rtype))
+                val request = Request.Builder().url("$url?c=$rtype")
+                    .get()
+                    .build()
+                val response = client.newCall(request).execute()
+                val content = response.body!!.string()
+                val data = Gson().fromJson(content, Hitokoto::class.java)
+                var result = """
+                    今日一言：${data.sentense}
+                    来自：${data.from}
+                    类型：$it
+                    数据来源：v1.hitokoto.cn
+                """.trimIndent()
+                this.group.sendMessage(result)
             }
 
             ("Copyright") reply ("""
@@ -93,42 +135,12 @@ object Main : PluginBase() {
         //config.save()
     }
 
-    fun getHitokoto(type: String = ""): String {
-        val request = Request.Builder().url("$url?c=$type")
-            .get()
-            .build()
-        val response = client.newCall(request).execute()
-        val content = response.body!!.string()
-        val data = Gson().fromJson(content, Hitokoto::class.java)
-        val tempType = when (data.type) {
-            "a" -> "动画"
-            "b" -> "漫画"
-            "c" -> "游戏"
-            "d" -> "文学"
-            "e" -> "原创"
-            "f" -> "网络"
-            "g" -> "其他"
-            "h" -> "影视"
-            "i" -> "诗词"
-            "j" -> "网易云"
-            "k" -> "哲学"
-            "l" -> "抖机灵"
-            else -> "其他"
-        }
-        data.type = tempType
-        return """
-            今日一言：${data.sentense}
-            来自：${data.from}
-            类型：$tempType
-            数据来源：v1.hitokoto.cn
-         """.trimIndent()
-    }
-}
 
-data class Hitokoto(
-    @SerializedName("hitokoto")
-    var sentense: String? = "",
-    var type: String? = "",
-    var uuid: String? = "",
-    var from: String? = ""
-)
+    data class Hitokoto(
+        @SerializedName("hitokoto")
+        var sentense: String? = "",
+        var type: String? = "",
+        var uuid: String? = "",
+        var from: String? = ""
+    )
+}
