@@ -89,9 +89,8 @@ object main : PluginBase() {
                 """.trimIndent())
 
             }
-            contains("类型列表"){
-                this.group.sendMessage("""
-                    类型列表（参数|类型）
+            ("列表")reply("""
+                类型列表（参数|类型）
                     a | 动画
                     b | 动漫
                     c | 游戏
@@ -104,8 +103,7 @@ object main : PluginBase() {
                     j | 网易云
                     k | 哲学
                     l | 抖机灵
-                """.trimIndent())
-            }
+            """.trimIndent())
             startsWith("类型"){
                 var rtype: String?
                 rtype = when (it){
@@ -139,15 +137,19 @@ object main : PluginBase() {
                 """.trimIndent())
             }
 
-            ("Copyright")reply("Design By SamSong,Hitokoto Source by hitokoto.cn")
-            contains("info"){
-
+            ("Copyright")reply("""
+                Design/Code By SamSong
+                Engine By Mirai
+                Hitokoto Source By hitokoto.cn
+            """.trimIndent())
+            contains("HitokotoInfo"){
                 this.group.sendMessage("""
-                简单一*言插件命令
-                一*言：简单一言
-                类*型+xx：输出带类型的一*言
-                类型*列表：输出所有类型
-                P.S.其中的*为防止Bot误识别所用的标识符，在使用时请删去
+                    一*言：输出标准格式的一*言
+                    列*表：输出类*型列*表
+                    类*型：输出特定类*型的一言
+                    Hitokoto*info：指令菜单
+                    Copy*right：输出插件版权信息
+                    P.S.本消息中所有*均为防止程序逻辑错误所使用的占位符，使用时不需输入
                 """.trimIndent())
             }
         }
